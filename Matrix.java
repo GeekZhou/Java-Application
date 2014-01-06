@@ -51,17 +51,53 @@ public class Matrix {
 	 */
 	public void printMatrix(){
 		for(int i=0; i<this.numOfRow;i++){
-			System.out.println();
 			for(int j=0; j<this.numOfColumn;j++){
 				System.out.print(this.matrix[i][j] +" ");
 			}
+			System.out.println();
 		}
 	}
+	/**
+	 * Get the specified row from the matrix
+	 * @param m the row to get
+	 * @return a matrix which is a row in the matrix
+	 * @throws Exception
+	 */
+	public Matrix getRow(int m) throws Exception{
+		if(m<1||m>this.numOfRow)
+			throw new Exception("No such row exists");
+		Matrix row = new Matrix(1, this.numOfColumn, this.matrix[m-1]);
+		return row;
+	}
+	/**
+	 * Get the specified column from the Matrix 
+	 * @param n the nth column to obtain
+	 * @return the nth column
+	 * @throws Exception
+	 */
+	public Matrix getColumn(int n) throws Exception{
+		if(n<1|| n>this.numOfColumn)
+			throw new Exception("No such column exists");
+		double data[] = new double[this.numOfRow];
+		for(int i=0; i<this.numOfRow;i++){
+			data[i] = this.matrix[i][n-1];
+			
+		}
+		Matrix column = new Matrix(this.numOfRow,1,data);
+		return column;
+	}
 	
-	/**A small test of the class   */
+	/**A small test of the class*/
 	public static void main(String args[]){
 		double a[] = {1,2,3,4,5,6};
 		Matrix m = new Matrix(3,2,a);
-		m.printMatrix();	
+		m.printMatrix();
+		try {
+			//m.getRow(1).printMatrix();
+			m.getColumn(2).printMatrix();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
 	}
 }
